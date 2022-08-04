@@ -17,7 +17,7 @@
 
 ## About
 
-This repository hosts source code for DEXA didcomm protocol plugin for aca-py. This protocol will enable an aca-py instance to become Data Disclosure Agreement registry. This is part of the deliverables for Provenance services with smart data agreement ([PS-SDA](https://ontochain.ngi.eu/content/ps-sda)) project that has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 957338. 
+This repository hosts source code for DEXA didcomm protocol plugin for aca-py. This is part of the deliverables for Provenance services with smart data agreement ([PS-SDA](https://ontochain.ngi.eu/content/ps-sda)) project that has received funding from the European Union’s Horizon 2020 research and innovation programme under grant agreement No 957338. 
 ## Release Status
 
 Not released, work in progress. Planned release: September 2022
