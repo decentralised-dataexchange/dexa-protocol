@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "dexa-protocol"
+version = "0.1.0"
+description = "Hosts Data Disclosure Agreement protocols"
+authors = ["George J Padayatti <george.padayatti@igrant.io>"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.8"
+acapy-patched = "^0.5.6"
+dexa-sdk = { path = "/Users/georgejpadayatti/decentralised-dataexchange/dexa-sdk", develop = true }
+
+[tool.poetry.dev-dependencies]
+flake8 = "^5.0.4"
+autopep8 = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
