@@ -9,3 +9,14 @@ TAGS_DDA = {
         "url": SPEC_URI,
     },
 }
+
+
+TAGS_MARKETPLACE_LABEL = "Data Marketplace"
+TAGS_MARKETPLACE = {
+    "name": "Data Marketplace",
+    "description": "Data Marketplace - Core Functions",
+    "externalDocs": {
+        "description": "Specification",
+        "url": SPEC_URI,
+    },
+}

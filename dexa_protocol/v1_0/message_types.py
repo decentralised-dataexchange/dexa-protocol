@@ -7,8 +7,17 @@ SPEC_URI = "https://github.com/decentralised-dataexchange/data-exchange-agreemen
 # Message types
 BASIC_MESSAGE = f"sample/1.0/message"
 
-PROTOCOL_PACKAGE = "dexa_sdk.plugin.v1_0"
+# Data market place
+PUBLISH_DDA = f"data-marketplace/1.0/publish-dda"
+DELETE_DDA = f"data-marketplace/1.0/delete-dda"
+
+
+PROTOCOL_PACKAGE = "dexa_protocol.v1_0"
 
 MESSAGE_TYPES = DIDCommPrefix.qualify_all(
-    {BASIC_MESSAGE: f"{PROTOCOL_PACKAGE}.messages.sample_message.SampleMessage"}
+    {
+        BASIC_MESSAGE: f"{PROTOCOL_PACKAGE}.messages.sample_message.SampleMessage",
+        PUBLISH_DDA: f"{PROTOCOL_PACKAGE}.messages.publish_dda.PublishDDAMessage",
+        DELETE_DDA: f"{PROTOCOL_PACKAGE}.messages.delete_dda.DeleteDDAMessage"
+    }
 )

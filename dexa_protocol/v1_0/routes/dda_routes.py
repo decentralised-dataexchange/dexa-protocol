@@ -12,6 +12,7 @@ from .maps.tag_maps import TAGS_DDA_LABEL
 from .openapi.schemas import (
     CreateDataDisclosureAgreementTemplateRequestSchema,
     CreateDDATemplateRequestQueryStringSchema,
+    PublishDDAToMarketplaceMatchInfoSchema,
     QueryDDATemplateQueryStringSchema,
     UpdateDDATemplateQueryStringSchema,
     DDATemplateMatchInfoSchema,
@@ -164,3 +165,26 @@ async def publish_dda_template_handler(request: web.BaseRequest):
     )
 
     return web.json_response({}, status=204)
+
+
+@docs(tags=[TAGS_DDA_LABEL], summary="Publish DDA to marketplace")
+@match_info_schema(PublishDDAToMarketplaceMatchInfoSchema())
+async def publish_dda_to_marketplace_handler(request: web.BaseRequest):
+    """Publish DDA to marketplace handler"""
+
+    # Request context
+    context = request.app["request_context"]
+
+    # Path params
+    template_id = request.match_info["template_id"]
+    connection_id = request.match_info["connection_id"]
+
+    # Initiatlise MyData DID manager
+    mgr = DexaManager(context)
+
+    record = await mgr.publish_dda_template_to_marketplace(
+        connection_id,
+        template_id
+    )
+
+    return web.json_response(record.serialize())

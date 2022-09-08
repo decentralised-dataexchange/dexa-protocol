@@ -103,3 +103,29 @@ class DDATemplateMatchInfoSchema(OpenAPISchema):
     """DDA template match info schema"""
 
     template_id = fields.Str()
+
+
+class AddMarketPlaceConnectionMatchInfoSchema(OpenAPISchema):
+    """Mark connection as marketplace match info schema"""
+
+    connection_id = fields.Str()
+
+
+class QueryMarketplaceConnectionsQueryInfoSchema(OpenAPISchema):
+    """Query marketplace connections query info schema"""
+
+    connection_id = fields.Str()
+
+
+class PublishDDAToMarketplaceMatchInfoSchema(OpenAPISchema):
+    """Publish DDa to marketplace match info schema"""
+
+    template_id = fields.Str()
+    connection_id = fields.Str()
+
+
+class QueryPublishedDDATemplatesQueryString(OpenAPISchema):
+    """Query published DDA templates query string schema"""
+
+    page = fields.Int(required=False)
+    page_size = fields.Int(required=False)
