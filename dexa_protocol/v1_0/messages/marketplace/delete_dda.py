@@ -1,7 +1,7 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
 from marshmallow import EXCLUDE, fields
-from ..message_types import PROTOCOL_PACKAGE, DELETE_DDA
-from ..models.delete_dda_model import (
+from ...message_types import PROTOCOL_PACKAGE, DELETE_DDA
+from ...models.delete_dda_model import (
     DeleteDDAModel,
     DeleteDDAModelSchema
 )

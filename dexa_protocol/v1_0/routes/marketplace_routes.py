@@ -12,7 +12,8 @@ from .maps.tag_maps import TAGS_MARKETPLACE_LABEL
 from .openapi.schemas import (
     AddMarketPlaceConnectionMatchInfoSchema,
     QueryMarketplaceConnectionsQueryInfoSchema,
-    QueryPublishedDDATemplatesQueryString
+    QueryPublishedDDATemplatesQueryString,
+    QueryPublishedDDATemplatesForMarketplaceConnectionMatchInfoSchema
 )
 
 
@@ -84,3 +85,33 @@ async def query_published_dda_template_handler(request: web.BaseRequest):
     )
 
     return web.json_response(results._asdict())
+
+
+@docs(
+    tags=[TAGS_MARKETPLACE_LABEL],
+    summary="Query published DDA tempates for a marketplace connection"
+)
+@match_info_schema(QueryPublishedDDATemplatesForMarketplaceConnectionMatchInfoSchema())
+async def query_publish_dda_template_for_marketplace_connection(
+    request: web.BaseRequest
+):
+    """Query published DDA templates for a marketplace connection.
+
+    Args:
+        request (web.BaseRequest): Request
+    """
+
+    # Request context
+    context = request.app["request_context"]
+
+    # Path params
+    connection_id = request.match_info["connection_id"]
+
+    # Initialise the manager
+    mgr = DexaManager(context)
+
+    pagination_result = await mgr.send_list_marketplace_dda_message(
+        connection_id
+    )
+
+    return web.json_response(pagination_result._asdict())

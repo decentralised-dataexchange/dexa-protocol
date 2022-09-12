@@ -129,3 +129,36 @@ class QueryPublishedDDATemplatesQueryString(OpenAPISchema):
 
     page = fields.Int(required=False)
     page_size = fields.Int(required=False)
+
+
+class ListDDAPublishedInMarketplaceQueryStringSchema(OpenAPISchema):
+    """List DDA published in marketplace query string schema"""
+
+    page = fields.Int(required=False)
+    page_size = fields.Int(required=False)
+
+
+class QueryPublishedDDATemplatesForMarketplaceConnectionMatchInfoSchema(OpenAPISchema):
+    """Query published DDA templates for marketplace connection match info schema"""
+
+    connection_id = fields.Str()
+
+
+class RequestDDAFromDataSourceMatchInfoSchema(OpenAPISchema):
+    """Request DDA from Data Source match info schema"""
+
+    connection_id = fields.Str()
+    template_id = fields.Str()
+
+
+class QueryDDAInstancesQueryStringSchema(OpenAPISchema):
+    """
+    Query DDA instances
+    """
+
+    instance_id = fields.Str(required=False)
+    template_id = fields.Str(required=False)
+    template_version = fields.Str(required=False)
+    connection_id = fields.Str(required=False)
+    page = fields.Int(required=False)
+    page_size = fields.Int(required=False)

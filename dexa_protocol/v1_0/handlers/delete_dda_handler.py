@@ -4,7 +4,7 @@ from aries_cloudagent.messaging.base_handler import (
     RequestContext
 )
 from dexa_sdk.managers.dexa_manager import DexaManager
-from ..messages.delete_dda import DeleteDDAMessage
+from ..messages.marketplace.delete_dda import DeleteDDAMessage
 
 
 class DeleteDDAMessageHandler(BaseHandler):

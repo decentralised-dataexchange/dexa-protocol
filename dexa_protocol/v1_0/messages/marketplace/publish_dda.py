@@ -1,7 +1,7 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
 from marshmallow import EXCLUDE, fields
-from ..message_types import PROTOCOL_PACKAGE, PUBLISH_DDA
-from ..models.publish_dda_model import (
+from ...message_types import PROTOCOL_PACKAGE, PUBLISH_DDA
+from ...models.publish_dda_model import (
     PublishDDAModel,
     PublishDDAModelSchema
 )

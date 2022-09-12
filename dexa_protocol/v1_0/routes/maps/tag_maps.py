@@ -2,7 +2,7 @@ from ...message_types import SPEC_URI
 
 TAGS_DDA_LABEL = "Data Disclosure Agreements"
 TAGS_DDA = {
-    "name": "Data Disclosure Agreements",
+    "name": TAGS_DDA_LABEL,
     "description": "Data Disclosure Agreement - Core Functions",
     "externalDocs": {
         "description": "Specification",
@@ -13,7 +13,7 @@ TAGS_DDA = {
 
 TAGS_MARKETPLACE_LABEL = "Data Marketplace"
 TAGS_MARKETPLACE = {
-    "name": "Data Marketplace",
+    "name": TAGS_MARKETPLACE_LABEL,
     "description": "Data Marketplace - Core Functions",
     "externalDocs": {
         "description": "Specification",

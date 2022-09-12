@@ -8,6 +8,9 @@ from aiohttp_apispec import (
 from dexa_sdk.managers.dexa_manager import DexaManager
 from dexa_sdk.utils import clean_and_get_field_from_dict
 from mydata_did.v1_0.utils.util import str_to_bool
+from mydata_did.v1_0.routes.maps.tag_maps import (
+    TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL
+)
 from .maps.tag_maps import TAGS_DDA_LABEL
 from .openapi.schemas import (
     CreateDataDisclosureAgreementTemplateRequestSchema,
@@ -16,7 +19,10 @@ from .openapi.schemas import (
     QueryDDATemplateQueryStringSchema,
     UpdateDDATemplateQueryStringSchema,
     DDATemplateMatchInfoSchema,
-    UpdateDDATemplateRequestSchema
+    UpdateDDATemplateRequestSchema,
+    ListDDAPublishedInMarketplaceQueryStringSchema,
+    RequestDDAFromDataSourceMatchInfoSchema,
+    QueryDDAInstancesQueryStringSchema
 )
 
 
@@ -188,3 +194,94 @@ async def publish_dda_to_marketplace_handler(request: web.BaseRequest):
     )
 
     return web.json_response(record.serialize())
+
+
+@docs(tags=[TAGS_DDA_LABEL], summary="List DDA published in marketplace.")
+@querystring_schema(ListDDAPublishedInMarketplaceQueryStringSchema())
+async def list_dda_published_in_marketplace(request: web.BaseRequest):
+    """List DDA published in marketplace"""
+
+    # Request context
+    context = request.app["request_context"]
+
+    # Query string params
+    page = clean_and_get_field_from_dict(request.query, "page")
+    page = int(page) if page is not None else page
+    page_size = clean_and_get_field_from_dict(request.query, "page_size")
+    page_size = int(page_size) if page_size is not None else page_size
+
+    # Initiatlise MyData DID manager
+    mgr = DexaManager(context)
+
+    # Paginated list of published DDAs
+    pagination_result = await mgr.list_dda_published_in_marketplace(
+        page if page else 1,
+        page_size if page_size else 10
+    )
+
+    return web.json_response(pagination_result._asdict())
+
+
+@docs(tags=[TAGS_DDA_LABEL], summary="Request DDA offer from Data Source.")
+@match_info_schema(RequestDDAFromDataSourceMatchInfoSchema())
+async def request_dda_offer_from_ds_handler(request: web.BaseRequest):
+    """Request DDA offer from DS handler
+
+    Args:
+        request (web.BaseRequest): Request
+    """
+
+    # Request context
+    context = request.app["request_context"]
+
+    # Path params.
+    template_id = request.match_info["template_id"]
+    connection_id = request.match_info["connection_id"]
+
+    # Initialise manager.
+    mgr = DexaManager(context)
+
+    # Request DDA from DS.
+    await mgr.request_dda_offer_from_ds(
+        connection_id,
+        template_id
+    )
+
+    return web.json_response({}, status=204)
+
+
+@docs(
+    tags=[TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL], summary="Query DDA instances"
+)
+@querystring_schema(QueryDDAInstancesQueryStringSchema())
+async def query_dda_instances_handler(request: web.BaseRequest):
+    """
+    Request handler for querying DDA instances.
+    """
+
+    # Context
+    context = request.app["request_context"]
+
+    instance_id = clean_and_get_field_from_dict(request.query, "instance_id")
+    template_id = clean_and_get_field_from_dict(request.query, "template_id")
+    template_version = clean_and_get_field_from_dict(request.query, "template_version")
+    connection_id = clean_and_get_field_from_dict(request.query, "connection_id")
+    page = clean_and_get_field_from_dict(request.query, "page")
+    page = int(page) if page is not None else page
+    page_size = clean_and_get_field_from_dict(request.query, "page_size")
+    page_size = int(page_size) if page_size is not None else page_size
+
+    # Initialise Dexa manager
+    manager = DexaManager(context=context)
+
+    # Get the data agreement instances
+    paginationResult = await manager.query_dda_instances(
+        instance_id,
+        template_id,
+        template_version,
+        connection_id,
+        page if page else 1,
+        page_size if page_size else 10
+    )
+
+    return web.json_response(paginationResult._asdict())

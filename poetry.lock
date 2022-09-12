@@ -8,7 +8,7 @@ python-versions = "^3.8"
 develop = true
 
 [package.dependencies]
-acapy-patched = "^0.5.6"
+acapy-patched = "0.5.6.dev1"
 dexa-sdk = {path = "/Users/georgejpadayatti/decentralised-dataexchange/dexa-sdk", develop = true}
 MarkupSafe = "2.0.1"
 py-multibase = "^1.0.3"
@@ -24,7 +24,7 @@ url = "../acapy-mydata-did-protocol"
 
 [[package]]
 name = "acapy-patched"
-version = "0.5.6"
+version = "0.5.6.dev1"
 description = ""
 category = "main"
 optional = false
@@ -225,7 +225,7 @@ python-versions = "~=3.7"
 
 [[package]]
 name = "certifi"
-version = "2022.6.15"
+version = "2022.6.15.1"
 description = "Python package for providing Mozilla's CA Bundle."
 category = "main"
 optional = false
@@ -332,8 +332,9 @@ develop = true
 
 [package.dependencies]
 acapy-mydata-did-protocol = {path = "/Users/georgejpadayatti/decentralised-dataexchange/acapy-mydata-did-protocol", develop = true}
-acapy-patched = "^0.5.6"
+acapy-patched = "0.5.6.dev1"
 asynctest = "^0.13.0"
+dexa-protocol = {path = "/Users/georgejpadayatti/decentralised-dataexchange/dexa-protocol", develop = true}
 green = "^3.4.2"
 ipykernel = "^6.15.1"
 jcs = "^0.2.1"
@@ -739,7 +740,7 @@ i18n = ["Babel (>=0.8)"]
 
 [[package]]
 name = "jsonschema"
-version = "4.15.0"
+version = "4.16.0"
 description = "An implementation of JSON Schema validation for Python"
 category = "main"
 optional = false
@@ -1680,12 +1681,13 @@ testing = ["func-timeout", "jaraco.itertools", "pytest (>=6)", "pytest-black (>=
 [metadata]
 lock-version = "1.1"
 python-versions = "^3.8"
-content-hash = "155fc021aa5a7df52a2f1eea7023c6f4e4fe62364feb84afe3798b22ae1e9783"
+content-hash = "2e43e011f79b7a122b9a185c1103d74d5bee1535554189e048f7627e0406d394"
 
 [metadata.files]
 acapy-mydata-did-protocol = []
 acapy-patched = [
-    {file = "acapy_patched-0.5.6-py3-none-any.whl", hash = "sha256:831e18bc851271b8adcdc6dbeda20e84e41b69bcc87a8d4d4c7af680931a3f55"},
+    {file = "acapy-patched-0.5.6.dev1.tar.gz", hash = "sha256:cbbe26567fd3ddf476d69ce1480249772f0714354a327fceaf9a85d7f649f394"},
+    {file = "acapy_patched-0.5.6.dev1-py3-none-any.whl", hash = "sha256:a4f1c7562e1342baaec55471de857916ccd1d2292b7412ed3e8a97a8769974d7"},
 ]
 aiohttp = [
     {file = "aiohttp-3.7.4.post0-cp36-cp36m-macosx_10_14_x86_64.whl", hash = "sha256:3cf75f7cdc2397ed4442594b935a11ed5569961333d49b7539ea741be2cc79d5"},
@@ -1852,8 +1854,8 @@ cachetools = [
     {file = "cachetools-5.2.0.tar.gz", hash = "sha256:6a94c6402995a99c3970cc7e4884bb60b4a8639938157eeed436098bf9831757"},
 ]
 certifi = [
-    {file = "certifi-2022.6.15-py3-none-any.whl", hash = "sha256:fe86415d55e84719d75f8b69414f6438ac3547d2078ab91b67e779ef69378412"},
-    {file = "certifi-2022.6.15.tar.gz", hash = "sha256:84c85a9078b11105f04f3036a9482ae10e4621616db313fe045dd24743a0820d"},
+    {file = "certifi-2022.6.15.1-py3-none-any.whl", hash = "sha256:43dadad18a7f168740e66944e4fa82c6611848ff9056ad910f8f7a3e46ab89e0"},
+    {file = "certifi-2022.6.15.1.tar.gz", hash = "sha256:cffdcd380919da6137f76633531a5817e3a9f268575c128249fb637e4f9e73fb"},
 ]
 cffi = [
     {file = "cffi-1.15.1-cp27-cp27m-macosx_10_9_x86_64.whl", hash = "sha256:a66d3508133af6e8548451b25058d5812812ec3798c886bf38ed24a98216fab2"},
@@ -2214,8 +2216,8 @@ jinja2 = [
     {file = "Jinja2-2.11.3.tar.gz", hash = "sha256:a6d58433de0ae800347cab1fa3043cebbabe8baa9d29e668f1c768cb87a333c6"},
 ]
 jsonschema = [
-    {file = "jsonschema-4.15.0-py3-none-any.whl", hash = "sha256:2df0fab225abb3b41967bb3a46fd37dc74b1536b5296d0b1c2078cd072adf0f7"},
-    {file = "jsonschema-4.15.0.tar.gz", hash = "sha256:21f4979391bdceb044e502fd8e79e738c0cdfbdc8773f9a49b5769461e82fe1e"},
+    {file = "jsonschema-4.16.0-py3-none-any.whl", hash = "sha256:9e74b8f9738d6a946d70705dc692b74b5429cd0960d58e79ffecfc43b2221eb9"},
+    {file = "jsonschema-4.16.0.tar.gz", hash = "sha256:165059f076eff6971bae5b742fc029a7b4ef3f9bcf04c14e4776a7605de14b23"},
 ]
 jupyter-client = [
     {file = "jupyter_client-7.3.5-py3-none-any.whl", hash = "sha256:b33222bdc9dd1714228bd286af006533a0abe2bbc093e8f3d29dc0b91bdc2be4"},
@@ -2910,6 +2912,7 @@ pyzmq = [
     {file = "pyzmq-23.2.1-cp37-cp37m-musllinux_1_1_x86_64.whl", hash = "sha256:48400b96788cdaca647021bf19a9cd668384f46e4d9c55cf045bdd17f65299c8"},
     {file = "pyzmq-23.2.1-cp37-cp37m-win32.whl", hash = "sha256:8a68f57b7a3f7b6b52ada79876be1efb97c8c0952423436e84d70cc139f16f0d"},
     {file = "pyzmq-23.2.1-cp37-cp37m-win_amd64.whl", hash = "sha256:9e5bf6e7239fc9687239de7a283aa8b801ab85371116045b33ae20132a1325d6"},
+    {file = "pyzmq-23.2.1-cp38-cp38-macosx_10_15_universal2.whl", hash = "sha256:0ff6294e001129a9f22dcbfba186165c7e6f573c46de2704d76f873c94c65416"},
     {file = "pyzmq-23.2.1-cp38-cp38-macosx_10_9_x86_64.whl", hash = "sha256:ffc6b1623d0f9affb351db4ca61f432dca3628a5ee015f9bf2bfbe9c6836881c"},
     {file = "pyzmq-23.2.1-cp38-cp38-manylinux_2_12_i686.manylinux2010_i686.whl", hash = "sha256:4d6f110c56f7d5b4d64dde3a382ae61b6d48174e30742859d8e971b18b6c9e5c"},
     {file = "pyzmq-23.2.1-cp38-cp38-manylinux_2_12_x86_64.manylinux2010_x86_64.whl", hash = "sha256:9269fbfe3a4eb2009199120861c4571ef1655fdf6951c3e7f233567c94e8c602"},
