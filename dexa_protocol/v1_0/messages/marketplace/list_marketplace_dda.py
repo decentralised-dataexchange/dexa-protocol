@@ -1,11 +1,8 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
+from dexa_protocol.v1_0.message_types import LIST_MARKETPLACE_DDA, PROTOCOL_PACKAGE
 from marshmallow import EXCLUDE
-from ...message_types import PROTOCOL_PACKAGE, LIST_MARKETPLACE_DDA
 
-
-HANDLER_CLASS = (
-    f"{PROTOCOL_PACKAGE}.handlers.list_marketplace_dda_handler.ListMarketplaceDDAMessageHandler"
-)
+HANDLER_CLASS = f"{PROTOCOL_PACKAGE}.handlers.list_marketplace_dda_handler.ListMarketplaceDDAMessageHandler"
 
 
 class ListMarketplaceDDAMessage(AgentMessage):
@@ -29,7 +26,6 @@ class ListMarketplaceDDAMessage(AgentMessage):
 
 
 class ListMarketplaceDDAMessageSchema(AgentMessageSchema):
-
     class Meta:
         # Model class
         model_class = ListMarketplaceDDAMessage

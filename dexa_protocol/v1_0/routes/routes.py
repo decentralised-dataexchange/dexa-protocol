@@ -1,9 +1,6 @@
 from aiohttp import web
-from .maps.route_maps import (
-    ROUTES_DDA,
-    MARKETPLACE_ROUTES
-)
-from .maps.tag_maps import TAGS_DDA
+from dexa_protocol.v1_0.routes.maps.route_maps import MARKETPLACE_ROUTES, ROUTES_DDA
+from dexa_protocol.v1_0.routes.maps.tag_maps import TAGS_DDA
 
 
 async def register(app: web.Application):

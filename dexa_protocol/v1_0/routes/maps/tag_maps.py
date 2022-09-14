@@ -1,4 +1,4 @@
-from ...message_types import SPEC_URI
+from dexa_protocol.v1_0.message_types import SPEC_URI
 
 TAGS_DDA_LABEL = "Data Disclosure Agreements"
 TAGS_DDA = {

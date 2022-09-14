@@ -1,9 +1,14 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
+from dexa_protocol.v1_0.message_types import PROTOCOL_PACKAGE, REQUEST_DDA
+from dexa_protocol.v1_0.models.request_dda_model import (
+    RequestDDAModel,
+    RequestDDAModelSchema,
+)
 from marshmallow import EXCLUDE, fields
-from ...message_types import PROTOCOL_PACKAGE, REQUEST_DDA
-from ...models.request_dda_model import RequestDDAModel, RequestDDAModelSchema
 
-HANDLER_CLASS = f"{PROTOCOL_PACKAGE}.handlers.request_dda_handler.RequestDDAMessageHandler"
+HANDLER_CLASS = (
+    f"{PROTOCOL_PACKAGE}.handlers.request_dda_handler.RequestDDAMessageHandler"
+)
 
 
 class RequestDDAMessage(AgentMessage):

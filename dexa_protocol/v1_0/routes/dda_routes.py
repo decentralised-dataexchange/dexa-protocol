@@ -1,29 +1,25 @@
 from aiohttp import web
-from aiohttp_apispec import (
-    docs,
-    request_schema,
-    querystring_schema,
-    match_info_schema
+from aiohttp_apispec import docs, match_info_schema, querystring_schema, request_schema
+from dexa_protocol.v1_0.routes.maps.tag_maps import TAGS_DDA_LABEL
+from dexa_protocol.v1_0.routes.openapi.schemas import (
+    CreateDataDisclosureAgreementTemplateRequestSchema,
+    CreateDDATemplateRequestQueryStringSchema,
+    DDATemplateMatchInfoSchema,
+    DeactivateDDAMatchInfoSchema,
+    ListDDAPublishedInMarketplaceQueryStringSchema,
+    PublishDDAToMarketplaceMatchInfoSchema,
+    QueryDDAInstancesQueryStringSchema,
+    QueryDDATemplateQueryStringSchema,
+    RequestDDAFromDataSourceMatchInfoSchema,
+    UpdateDDATemplateQueryStringSchema,
+    UpdateDDATemplateRequestSchema,
 )
 from dexa_sdk.managers.dexa_manager import DexaManager
 from dexa_sdk.utils import clean_and_get_field_from_dict
-from mydata_did.v1_0.utils.util import str_to_bool
 from mydata_did.v1_0.routes.maps.tag_maps import (
-    TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL
+    TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL,
 )
-from .maps.tag_maps import TAGS_DDA_LABEL
-from .openapi.schemas import (
-    CreateDataDisclosureAgreementTemplateRequestSchema,
-    CreateDDATemplateRequestQueryStringSchema,
-    PublishDDAToMarketplaceMatchInfoSchema,
-    QueryDDATemplateQueryStringSchema,
-    UpdateDDATemplateQueryStringSchema,
-    DDATemplateMatchInfoSchema,
-    UpdateDDATemplateRequestSchema,
-    ListDDAPublishedInMarketplaceQueryStringSchema,
-    RequestDDAFromDataSourceMatchInfoSchema,
-    QueryDDAInstancesQueryStringSchema
-)
+from mydata_did.v1_0.utils.util import str_to_bool
 
 
 @docs(tags=[TAGS_DDA_LABEL], summary="Create a data disclosure agreement template.")
@@ -43,15 +39,16 @@ async def create_data_disclosure_agreement_handler(request: web.BaseRequest):
     dda = await request.json()
 
     # Fetch query string params
-    publish_flag = str_to_bool(clean_and_get_field_from_dict(request.query, "publish_flag"))
+    publish_flag = str_to_bool(
+        clean_and_get_field_from_dict(request.query, "publish_flag")
+    )
 
     # Initialise DEXA manager
     manager = DexaManager(context)
 
     # Create and store DDA in wallet.
     record = await manager.create_and_store_dda_template_in_wallet(
-        dda,
-        publish_flag=publish_flag
+        dda, publish_flag=publish_flag
     )
 
     return web.json_response(record.serialize())
@@ -75,7 +72,9 @@ async def query_dda_handler(request: web.BaseRequest):
     industry_sector = clean_and_get_field_from_dict(request.query, "industry_sector")
     publish_flag = clean_and_get_field_from_dict(request.query, "publish_flag")
     delete_flag = clean_and_get_field_from_dict(request.query, "delete_flag")
-    latest_version_flag = clean_and_get_field_from_dict(request.query, "latest_version_flag")
+    latest_version_flag = clean_and_get_field_from_dict(
+        request.query, "latest_version_flag"
+    )
     page = clean_and_get_field_from_dict(request.query, "page")
     page = int(page) if page is not None else page
     page_size = clean_and_get_field_from_dict(request.query, "page_size")
@@ -93,7 +92,7 @@ async def query_dda_handler(request: web.BaseRequest):
         delete_flag=delete_flag,
         latest_version_flag=latest_version_flag,
         page=page if page else 1,
-        page_size=page_size if page_size else 10
+        page_size=page_size if page_size else 10,
     )
 
     return web.json_response(paginationResult._asdict())
@@ -123,9 +122,7 @@ async def update_dda_template_handler(request: web.BaseRequest):
     manager = DexaManager(context=context)
 
     record = await manager.update_dda_template_in_wallet(
-        template_id=template_id,
-        dda=dda,
-        publish_flag=publish_flag
+        template_id=template_id, dda=dda, publish_flag=publish_flag
     )
 
     return web.json_response(record.serialize(), status=200)
@@ -145,9 +142,7 @@ async def delete_dda_template_handler(request: web.BaseRequest):
     # Initialise MyData DID Manager
     manager = DexaManager(context=context)
 
-    await manager.delete_dda_template_in_wallet(
-        template_id
-    )
+    await manager.delete_dda_template_in_wallet(template_id)
 
     return web.json_response({}, status=204)
 
@@ -166,9 +161,7 @@ async def publish_dda_template_handler(request: web.BaseRequest):
     # Initialise MyData DID Manager
     manager = DexaManager(context=context)
 
-    await manager.publish_dda_template_wallet(
-        template_id
-    )
+    await manager.publish_dda_template_wallet(template_id)
 
     return web.json_response({}, status=204)
 
@@ -188,10 +181,7 @@ async def publish_dda_to_marketplace_handler(request: web.BaseRequest):
     # Initiatlise MyData DID manager
     mgr = DexaManager(context)
 
-    record = await mgr.publish_dda_template_to_marketplace(
-        connection_id,
-        template_id
-    )
+    record = await mgr.publish_dda_template_to_marketplace(connection_id, template_id)
 
     return web.json_response(record.serialize())
 
@@ -215,8 +205,7 @@ async def list_dda_published_in_marketplace(request: web.BaseRequest):
 
     # Paginated list of published DDAs
     pagination_result = await mgr.list_dda_published_in_marketplace(
-        page if page else 1,
-        page_size if page_size else 10
+        page if page else 1, page_size if page_size else 10
     )
 
     return web.json_response(pagination_result._asdict())
@@ -242,17 +231,12 @@ async def request_dda_offer_from_ds_handler(request: web.BaseRequest):
     mgr = DexaManager(context)
 
     # Request DDA from DS.
-    await mgr.request_dda_offer_from_ds(
-        connection_id,
-        template_id
-    )
+    await mgr.request_dda_offer_from_ds(connection_id, template_id)
 
     return web.json_response({}, status=204)
 
 
-@docs(
-    tags=[TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL], summary="Query DDA instances"
-)
+@docs(tags=[TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL], summary="Query DDA instances")
 @querystring_schema(QueryDDAInstancesQueryStringSchema())
 async def query_dda_instances_handler(request: web.BaseRequest):
     """
@@ -281,7 +265,31 @@ async def query_dda_instances_handler(request: web.BaseRequest):
         template_version,
         connection_id,
         page if page else 1,
-        page_size if page_size else 10
+        page_size if page_size else 10,
     )
 
     return web.json_response(paginationResult._asdict())
+
+
+@docs(tags=[TAGS_DDA_LABEL], summary="Deactivate DDA.")
+@match_info_schema(DeactivateDDAMatchInfoSchema())
+async def deactivate_dda_instance_handler(request: web.BaseRequest):
+    """Deactivate DDA instance.
+
+    Args:
+        request (web.BaseRequest): Request.
+    """
+
+    # Context
+    context = request.app["request_context"]
+
+    # Path parameters
+    instance_id = request.match_info["instance_id"]
+
+    # Initialise manager.
+    mgr = DexaManager(context)
+
+    # Call the function.
+    await mgr.send_deactivate_dda_message(instance_id)
+
+    return web.json_response({}, status=204)

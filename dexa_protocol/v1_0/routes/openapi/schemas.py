@@ -36,18 +36,18 @@ class CreateDataDisclosureAgreementTemplateRequestSchema(OpenAPISchema):
 
     language = fields.Str(data_key="language")
     data_controller = fields.Nested(
-        DataControllerOpenAPISchema,
-        data_key="dataController"
+        DataControllerOpenAPISchema, data_key="dataController"
     )
     agreement_period = fields.Int(data_key="agreementPeriod")
     data_sharing_restrictions = fields.Nested(
-        DataSharingRestrictionsOpenAPISchema,
-        data_key="dataSharingRestrictions"
+        DataSharingRestrictionsOpenAPISchema, data_key="dataSharingRestrictions"
     )
     purpose = fields.Str(data_key="purpose")
     purpose_description = fields.Str(data_key="purposeDescription")
     lawful_basis = fields.Str(data_key="lawfulBasis")
-    personal_data = fields.List(fields.Nested(PersonalDataOpenAPISchema), data_key="personalData")
+    personal_data = fields.List(
+        fields.Nested(PersonalDataOpenAPISchema), data_key="personalData"
+    )
     code_of_conduct = fields.Str(data_key="codeOfConduct")
 
 
@@ -81,20 +81,17 @@ class UpdateDDATemplateRequestSchema(OpenAPISchema):
 
     language = fields.Str(data_key="language")
     data_controller = fields.Nested(
-        DataControllerOpenAPISchema,
-        data_key="dataController"
+        DataControllerOpenAPISchema, data_key="dataController"
     )
     agreement_period = fields.Int(data_key="agreementPeriod")
     data_sharing_restrictions = fields.Nested(
-        DataSharingRestrictionsOpenAPISchema,
-        data_key="dataSharingRestrictions"
+        DataSharingRestrictionsOpenAPISchema, data_key="dataSharingRestrictions"
     )
     purpose = fields.Str(data_key="purpose")
     purpose_description = fields.Str(data_key="purposeDescription")
     lawful_basis = fields.Str(data_key="lawfulBasis")
     personal_data = fields.List(
-        fields.Nested(PersonalDataOpenAPISchema),
-        data_key="personalData"
+        fields.Nested(PersonalDataOpenAPISchema), data_key="personalData"
     )
     code_of_conduct = fields.Str(data_key="codeOfConduct")
 
@@ -162,3 +159,9 @@ class QueryDDAInstancesQueryStringSchema(OpenAPISchema):
     connection_id = fields.Str(required=False)
     page = fields.Int(required=False)
     page_size = fields.Int(required=False)
+
+
+class DeactivateDDAMatchInfoSchema(OpenAPISchema):
+    """Deactivate DDA match info schema"""
+
+    instance_id = fields.Str()

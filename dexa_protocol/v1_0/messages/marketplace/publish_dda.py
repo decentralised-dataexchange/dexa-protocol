@@ -1,12 +1,14 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
-from marshmallow import EXCLUDE, fields
-from ...message_types import PROTOCOL_PACKAGE, PUBLISH_DDA
-from ...models.publish_dda_model import (
+from dexa_protocol.v1_0.message_types import PROTOCOL_PACKAGE, PUBLISH_DDA
+from dexa_protocol.v1_0.models.publish_dda_model import (
     PublishDDAModel,
-    PublishDDAModelSchema
+    PublishDDAModelSchema,
 )
+from marshmallow import EXCLUDE, fields
 
-HANDLER_CLASS = f"{PROTOCOL_PACKAGE}.handlers.publish_dda_handler.PublishDDAMessageHandler"
+HANDLER_CLASS = (
+    f"{PROTOCOL_PACKAGE}.handlers.publish_dda_handler.PublishDDAMessageHandler"
+)
 
 
 class PublishDDAMessage(AgentMessage):
@@ -32,7 +34,6 @@ class PublishDDAMessage(AgentMessage):
 
 
 class PublishDDAMessageSchema(AgentMessageSchema):
-
     class Meta:
         # Model class
         model_class = PublishDDAMessage

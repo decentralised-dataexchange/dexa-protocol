@@ -1,26 +1,19 @@
-from aries_cloudagent.messaging.models.base import (
-    BaseModel,
-    BaseModelSchema
-)
-from marshmallow import EXCLUDE, fields
+from aries_cloudagent.messaging.models.base import BaseModel, BaseModelSchema
 from dexa_sdk.agreements.dda.v1_0.models.dda_models import (
     DataDisclosureAgreementModel,
-    DataDisclosureAgreementSchema
+    DataDisclosureAgreementSchema,
 )
+from marshmallow import EXCLUDE, fields
 
 
 class PublishDDAModel(BaseModel):
     """Publish DDA model"""
+
     class Meta:
         # Schema class
         schema_class = "PublishDDAModelSchema"
 
-    def __init__(
-        self,
-        *,
-        dda: DataDisclosureAgreementModel,
-        connection_url: str
-    ):
+    def __init__(self, *, dda: DataDisclosureAgreementModel, connection_url: str):
 
         # Call the parent constructor
         super().__init__()

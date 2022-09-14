@@ -1,10 +1,10 @@
 from aries_cloudagent.messaging.base_handler import (
     BaseHandler,
     BaseResponder,
-    RequestContext
+    RequestContext,
 )
+from dexa_protocol.v1_0.messages.marketplace.publish_dda import PublishDDAMessage
 from dexa_sdk.managers.dexa_manager import DexaManager
-from ..messages.marketplace.publish_dda import PublishDDAMessage
 
 
 class PublishDDAMessageHandler(BaseHandler):
@@ -20,6 +20,5 @@ class PublishDDAMessageHandler(BaseHandler):
 
         # Process publish dda request message.
         await mgr.process_publish_dda_request_message(
-            context.message,
-            context.message_receipt
+            context.message, context.message_receipt
         )

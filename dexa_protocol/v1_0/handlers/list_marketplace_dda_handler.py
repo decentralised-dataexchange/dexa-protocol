@@ -1,13 +1,16 @@
 """Basic message handler."""
 import json
-from loguru import logger
+
 from aries_cloudagent.messaging.base_handler import (
     BaseHandler,
     BaseResponder,
     RequestContext,
 )
+from dexa_protocol.v1_0.messages.marketplace.list_marketplace_dda import (
+    ListMarketplaceDDAMessage,
+)
 from dexa_sdk.managers.dexa_manager import DexaManager
-from ..messages.marketplace.list_marketplace_dda import ListMarketplaceDDAMessage
+from loguru import logger
 
 
 class ListMarketplaceDDAMessageHandler(BaseHandler):
@@ -33,6 +36,5 @@ class ListMarketplaceDDAMessageHandler(BaseHandler):
 
         # Process the message
         await mgr.process_list_marketplace_dda_message(
-            context.message,
-            context.message_receipt
+            context.message, context.message_receipt
         )

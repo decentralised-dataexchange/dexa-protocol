@@ -1,20 +1,14 @@
 from aiohttp import web
-from aiohttp_apispec import (
-    docs,
-    match_info_schema,
-    querystring_schema
-)
-from dexa_sdk.managers.dexa_manager import DexaManager
-from dexa_sdk.utils import (
-    clean_and_get_field_from_dict
-)
-from .maps.tag_maps import TAGS_MARKETPLACE_LABEL
-from .openapi.schemas import (
+from aiohttp_apispec import docs, match_info_schema, querystring_schema
+from dexa_protocol.v1_0.routes.maps.tag_maps import TAGS_MARKETPLACE_LABEL
+from dexa_protocol.v1_0.routes.openapi.schemas import (
     AddMarketPlaceConnectionMatchInfoSchema,
     QueryMarketplaceConnectionsQueryInfoSchema,
+    QueryPublishedDDATemplatesForMarketplaceConnectionMatchInfoSchema,
     QueryPublishedDDATemplatesQueryString,
-    QueryPublishedDDATemplatesForMarketplaceConnectionMatchInfoSchema
 )
+from dexa_sdk.managers.dexa_manager import DexaManager
+from dexa_sdk.utils import clean_and_get_field_from_dict
 
 
 @docs(tags=[TAGS_MARKETPLACE_LABEL], summary="Mark a connection as data marketplace")
@@ -80,8 +74,7 @@ async def query_published_dda_template_handler(request: web.BaseRequest):
 
     # Query the records and obtain the paginated result.
     results = await manager.query_publish_dda_template_records(
-        page if page else 1,
-        page_size if page_size else 10
+        page if page else 1, page_size if page_size else 10
     )
 
     return web.json_response(results._asdict())
@@ -89,11 +82,11 @@ async def query_published_dda_template_handler(request: web.BaseRequest):
 
 @docs(
     tags=[TAGS_MARKETPLACE_LABEL],
-    summary="Query published DDA tempates for a marketplace connection"
+    summary="Query published DDA tempates for a marketplace connection",
 )
 @match_info_schema(QueryPublishedDDATemplatesForMarketplaceConnectionMatchInfoSchema())
 async def query_publish_dda_template_for_marketplace_connection(
-    request: web.BaseRequest
+    request: web.BaseRequest,
 ):
     """Query published DDA templates for a marketplace connection.
 
@@ -110,8 +103,6 @@ async def query_publish_dda_template_for_marketplace_connection(
     # Initialise the manager
     mgr = DexaManager(context)
 
-    pagination_result = await mgr.send_list_marketplace_dda_message(
-        connection_id
-    )
+    pagination_result = await mgr.send_list_marketplace_dda_message(connection_id)
 
     return web.json_response(pagination_result._asdict())

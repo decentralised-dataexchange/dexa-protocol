@@ -1,9 +1,9 @@
 from aries_cloudagent.messaging.models.base import BaseModel, BaseModelSchema
-from marshmallow import EXCLUDE, fields
 from dexa_sdk.agreements.dda.v1_0.models.dda_instance_models import (
     DataDisclosureAgreementInstanceModel,
-    DataDisclosureAgreementInstanceSchema
+    DataDisclosureAgreementInstanceSchema,
 )
+from marshmallow import EXCLUDE, fields
 
 
 class CustomerIdentificationModel(BaseModel):
@@ -78,4 +78,6 @@ class OfferDDAMessageBodyModelSchema(BaseModelSchema):
     dda = fields.Nested(DataDisclosureAgreementInstanceSchema)
 
     # Customer identification data.
-    customer_identification = fields.Nested(CustomerIdentificationModelSchema, required=False)
+    customer_identification = fields.Nested(
+        CustomerIdentificationModelSchema, required=False
+    )

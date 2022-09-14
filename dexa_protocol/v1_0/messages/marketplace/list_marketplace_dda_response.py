@@ -1,10 +1,13 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
-from marshmallow import EXCLUDE, fields
-from ...message_types import PROTOCOL_PACKAGE, LIST_MARKETPLACE_DDA_RESPONSE
-from ...models.list_marketplace_dda_response_model import (
-    ListMarketplaceDDAResponseBody,
-    ListMarketplaceDDAResponseBodySchema
+from dexa_protocol.v1_0.message_types import (
+    LIST_MARKETPLACE_DDA_RESPONSE,
+    PROTOCOL_PACKAGE,
 )
+from dexa_protocol.v1_0.models.list_marketplace_dda_response_model import (
+    ListMarketplaceDDAResponseBody,
+    ListMarketplaceDDAResponseBodySchema,
+)
+from marshmallow import EXCLUDE, fields
 
 HANDLER_CLASS = (
     f"{PROTOCOL_PACKAGE}.handlers.list_marketplace_dda_response_handler"
@@ -36,7 +39,6 @@ class ListMarketplaceDDAResponseMessage(AgentMessage):
 
 
 class ListMarketplaceDDAResponseMessageSchema(AgentMessageSchema):
-
     class Meta:
         # Model class
         model_class = ListMarketplaceDDAResponseMessage

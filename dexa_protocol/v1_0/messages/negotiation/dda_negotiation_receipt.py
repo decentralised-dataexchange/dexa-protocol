@@ -1,14 +1,12 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
-from marshmallow import EXCLUDE, fields
-from ...message_types import PROTOCOL_PACKAGE, NEGOTIATION_RECEIPT
-from ...models.dda_negotiation_receipt_model import (
+from dexa_protocol.v1_0.message_types import NEGOTIATION_RECEIPT, PROTOCOL_PACKAGE
+from dexa_protocol.v1_0.models.dda_negotiation_receipt_model import (
     DDANegotiationReceiptBodyModel,
-    DDANegotiationReceiptBodyModelSchema
+    DDANegotiationReceiptBodyModelSchema,
 )
+from marshmallow import EXCLUDE, fields
 
-HANDLER_CLASS = (
-    f"{PROTOCOL_PACKAGE}.handlers.dda_negotiation_receipt_handler.DDANegotiationReceiptHandler"
-)
+HANDLER_CLASS = f"{PROTOCOL_PACKAGE}.handlers.dda_negotiation_receipt_handler.DDANegotiationReceiptHandler"
 
 
 class DDANegotiationReceiptMessage(AgentMessage):

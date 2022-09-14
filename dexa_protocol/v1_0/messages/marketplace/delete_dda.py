@@ -1,12 +1,14 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
-from marshmallow import EXCLUDE, fields
-from ...message_types import PROTOCOL_PACKAGE, DELETE_DDA
-from ...models.delete_dda_model import (
+from dexa_protocol.v1_0.message_types import DELETE_DDA, PROTOCOL_PACKAGE
+from dexa_protocol.v1_0.models.delete_dda_model import (
     DeleteDDAModel,
-    DeleteDDAModelSchema
+    DeleteDDAModelSchema,
 )
+from marshmallow import EXCLUDE, fields
 
-HANDLER_CLASS = f"{PROTOCOL_PACKAGE}.handlers.delete_dda_handler.DeleteDDAMessageHandler"
+HANDLER_CLASS = (
+    f"{PROTOCOL_PACKAGE}.handlers.delete_dda_handler.DeleteDDAMessageHandler"
+)
 
 
 class DeleteDDAMessage(AgentMessage):

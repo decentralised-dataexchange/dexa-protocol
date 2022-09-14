@@ -1,10 +1,10 @@
 from aries_cloudagent.messaging.agent_message import AgentMessage, AgentMessageSchema
-from marshmallow import EXCLUDE, fields
-from ...message_types import PROTOCOL_PACKAGE, OFFER_DDA
-from ...models.offer_dda_model import (
+from dexa_protocol.v1_0.message_types import OFFER_DDA, PROTOCOL_PACKAGE
+from dexa_protocol.v1_0.models.offer_dda_model import (
     OfferDDAMessageBodyModel,
-    OfferDDAMessageBodyModelSchema
+    OfferDDAMessageBodyModelSchema,
 )
+from marshmallow import EXCLUDE, fields
 
 HANDLER_CLASS = f"{PROTOCOL_PACKAGE}.handlers.offer_dda_handler.OfferDDAMessageHandler"
 

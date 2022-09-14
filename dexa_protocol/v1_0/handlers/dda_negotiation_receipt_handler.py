@@ -1,12 +1,12 @@
 from aries_cloudagent.messaging.base_handler import (
     BaseHandler,
     BaseResponder,
-    RequestContext
+    RequestContext,
+)
+from dexa_protocol.v1_0.messages.negotiation.dda_negotiation_receipt import (
+    DDANegotiationReceiptMessage,
 )
 from dexa_sdk.managers.dexa_manager import DexaManager
-from ..messages.negotiation.dda_negotiation_receipt import (
-    DDANegotiationReceiptMessage
-)
 
 
 class DDANegotiationReceiptHandler(BaseHandler):
@@ -22,6 +22,5 @@ class DDANegotiationReceiptHandler(BaseHandler):
 
         # Process dda negotiation receipt message.
         await mgr.process_dda_negotiation_receipt_message(
-            context.message,
-            context.message_receipt
+            context.message, context.message_receipt
         )

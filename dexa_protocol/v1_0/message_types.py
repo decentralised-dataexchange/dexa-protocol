@@ -17,6 +17,7 @@ REQUEST_DDA = f"dda-negotiation/1.0/request-dda"
 OFFER_DDA = f"dda-negotiation/1.0/offer-dda"
 ACCEPT_DDA = f"dda-negotiation/1.0/accept-dda"
 NEGOTIATION_RECEIPT = f"dda-negotiation/1.0/receipt"
+DEACTIVATE_DDA = f"dda/1.0/deactivate"
 
 
 PROTOCOL_PACKAGE = "dexa_protocol.v1_0"
@@ -31,6 +32,7 @@ MESSAGE_TYPES = DIDCommPrefix.qualify_all(
         REQUEST_DDA: f"{PROTOCOL_PACKAGE}.messages.negotiation.request_dda.RequestDDAMessage",
         OFFER_DDA: f"{PROTOCOL_PACKAGE}.messages.negotiation.offer_dda.OfferDDAMessage",
         ACCEPT_DDA: f"{PROTOCOL_PACKAGE}.messages.negotiation.accept_dda.AcceptDDAMessage",
-        NEGOTIATION_RECEIPT: f"{PROTOCOL_PACKAGE}.messages.negotiation.dda_negotiation_receipt.DDANegotiationReceiptMessage"
+        NEGOTIATION_RECEIPT: f"{PROTOCOL_PACKAGE}.messages.negotiation.dda_negotiation_receipt.DDANegotiationReceiptMessage",
+        DEACTIVATE_DDA: f"{PROTOCOL_PACKAGE}.messages.deactivate_dda.DeactivateDDAMessage",
     }
 )

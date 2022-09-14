@@ -1,10 +1,10 @@
 from aries_cloudagent.messaging.base_handler import (
     BaseHandler,
     BaseResponder,
-    RequestContext
+    RequestContext,
 )
+from dexa_protocol.v1_0.messages.marketplace.delete_dda import DeleteDDAMessage
 from dexa_sdk.managers.dexa_manager import DexaManager
-from ..messages.marketplace.delete_dda import DeleteDDAMessage
 
 
 class DeleteDDAMessageHandler(BaseHandler):
@@ -19,7 +19,4 @@ class DeleteDDAMessageHandler(BaseHandler):
         mgr = DexaManager(context)
 
         # Process publish dda request message.
-        await mgr.process_delete_dda_message(
-            context.message,
-            context.message_receipt
-        )
+        await mgr.process_delete_dda_message(context.message, context.message_receipt)

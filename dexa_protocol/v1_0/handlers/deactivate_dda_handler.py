@@ -3,20 +3,22 @@ from aries_cloudagent.messaging.base_handler import (
     BaseResponder,
     RequestContext,
 )
-from dexa_protocol.v1_0.messages.negotiation.offer_dda import OfferDDAMessage
+from dexa_protocol.v1_0.messages.deactivate_dda import DeactivateDDAMessage
 from dexa_sdk.managers.dexa_manager import DexaManager
 
 
-class OfferDDAMessageHandler(BaseHandler):
-    """Offer DDA message handler logic"""
+class DeactivateDDAMessageHandler(BaseHandler):
+    """Deactivate DDA message handler logic"""
 
     async def handle(self, context: RequestContext, responder: BaseResponder):
         """Handle function"""
 
-        assert isinstance(context.message, OfferDDAMessage)
+        assert isinstance(context.message, DeactivateDDAMessage)
 
         # Initialise the manager.
         mgr = DexaManager(context)
 
         # Process the message.
-        await mgr.process_offer_dda_message(context.message, context.message_receipt)
+        await mgr.process_deactivate_dda_message(
+            context.message, context.message_receipt
+        )

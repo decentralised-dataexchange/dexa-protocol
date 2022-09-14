@@ -1,9 +1,7 @@
 import typing
-from aries_cloudagent.messaging.models.base import (
-    BaseModel,
-    BaseModelSchema
-)
-from marshmallow import fields, EXCLUDE
+
+from aries_cloudagent.messaging.models.base import BaseModel, BaseModelSchema
+from marshmallow import EXCLUDE, fields
 
 
 class ListMarketplaceDDAResponseModel(BaseModel):
@@ -56,10 +54,7 @@ class ListMarketplaceDDAResponseBody(BaseModel):
         schema_class = "ListMarketplaceDDAResponseBodySchema"
 
     def __init__(
-        self,
-        *,
-        results: typing.List[ListMarketplaceDDAResponseModel],
-        **kwargs
+        self, *, results: typing.List[ListMarketplaceDDAResponseModel], **kwargs
     ):
         super().__init__(**kwargs)
 
@@ -75,8 +70,4 @@ class ListMarketplaceDDAResponseBodySchema(BaseModelSchema):
         # Unknown fields are excluded
         unknown = EXCLUDE
 
-    results = fields.List(
-        fields.Nested(
-            ListMarketplaceDDAResponseModelSchema
-        )
-    )
+    results = fields.List(fields.Nested(ListMarketplaceDDAResponseModelSchema))

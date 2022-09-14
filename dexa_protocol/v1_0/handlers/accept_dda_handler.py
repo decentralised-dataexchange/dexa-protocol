@@ -1,10 +1,10 @@
 from aries_cloudagent.messaging.base_handler import (
     BaseHandler,
     BaseResponder,
-    RequestContext
+    RequestContext,
 )
+from dexa_protocol.v1_0.messages.negotiation.accept_dda import AcceptDDAMessage
 from dexa_sdk.managers.dexa_manager import DexaManager
-from ..messages.negotiation.accept_dda import AcceptDDAMessage
 
 
 class AcceptDDAMessageHandler(BaseHandler):
@@ -19,7 +19,4 @@ class AcceptDDAMessageHandler(BaseHandler):
         mgr = DexaManager(context)
 
         # Process the message.
-        await mgr.process_accept_dda_message(
-            context.message,
-            context.message_receipt
-        )
+        await mgr.process_accept_dda_message(context.message, context.message_receipt)

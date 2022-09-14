@@ -1,9 +1,9 @@
 from aries_cloudagent.messaging.models.base import BaseModel, BaseModelSchema
-from marshmallow import EXCLUDE, fields
 from dexa_sdk.agreements.dda.v1_0.models.dda_instance_models import (
     DataDisclosureAgreementInstanceModel,
-    DataDisclosureAgreementInstanceSchema
+    DataDisclosureAgreementInstanceSchema,
 )
+from marshmallow import EXCLUDE, fields
 
 
 class AcceptDDAMessageBodyModel(BaseModel):
@@ -13,12 +13,7 @@ class AcceptDDAMessageBodyModel(BaseModel):
         # Schema class
         schema_class = "AcceptDDAMessageBodyModelSchema"
 
-    def __init__(
-        self,
-        *,
-        dda: DataDisclosureAgreementInstanceModel,
-        **kwargs
-    ):
+    def __init__(self, *, dda: DataDisclosureAgreementInstanceModel, **kwargs):
         """Initialise accept DDA message body model.
 
         Args:
