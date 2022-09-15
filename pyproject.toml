@@ -3,7 +3,15 @@ name = "dexa-protocol"
 version = "0.1.1"
 description = "Hosts Data Disclosure Agreement protocols"
 authors = ["George J Padayatti <george.padayatti@igrant.io>"]
-license = "MIT"
+license = "License :: OSI Approved :: Apache Software License"
+readme = "README.md"
+homepage = "https://github.com/decentralised-dataexchange/dexa-protocol"
+repository = "https://github.com/decentralised-dataexchange/dexa-protocol"
+classifiers = [
+    "Topic :: Software Development :: Build Tools",
+    "Topic :: Software Development :: Libraries :: Python Modules"
+]
+keywords = ["acapy", "aries", "dataexchange", "ssi"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
