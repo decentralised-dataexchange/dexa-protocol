@@ -54,7 +54,8 @@ class CreateDataDisclosureAgreementTemplateRequestSchema(OpenAPISchema):
 class CreateDDATemplateRequestQueryStringSchema(OpenAPISchema):
     """Create dda template query string schema"""
 
-    publish_flag = fields.Boolean(required=True)
+    publish_flag = fields.Boolean()
+    da_template_id = fields.Str()
 
 
 class QueryDDATemplateQueryStringSchema(OpenAPISchema):

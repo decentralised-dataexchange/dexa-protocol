@@ -1,8 +1,7 @@
 from aiohttp import web
-from aiohttp_apispec import docs, match_info_schema, querystring_schema, request_schema
+from aiohttp_apispec import docs, match_info_schema, querystring_schema
 from dexa_protocol.v1_0.routes.maps.tag_maps import TAGS_DDA_LABEL
 from dexa_protocol.v1_0.routes.openapi.schemas import (
-    CreateDataDisclosureAgreementTemplateRequestSchema,
     CreateDDATemplateRequestQueryStringSchema,
     DDATemplateMatchInfoSchema,
     DeactivateDDAMatchInfoSchema,
@@ -12,7 +11,6 @@ from dexa_protocol.v1_0.routes.openapi.schemas import (
     QueryDDATemplateQueryStringSchema,
     RequestDDAFromDataSourceMatchInfoSchema,
     UpdateDDATemplateQueryStringSchema,
-    UpdateDDATemplateRequestSchema,
 )
 from dexa_sdk.managers.dexa_manager import DexaManager
 from dexa_sdk.utils import clean_and_get_field_from_dict
@@ -24,7 +22,6 @@ from mydata_did.v1_0.utils.util import str_to_bool
 
 @docs(tags=[TAGS_DDA_LABEL], summary="Create a data disclosure agreement template.")
 @querystring_schema(CreateDDATemplateRequestQueryStringSchema())
-@request_schema(CreateDataDisclosureAgreementTemplateRequestSchema())
 async def create_data_disclosure_agreement_handler(request: web.BaseRequest):
     """
     Request handle to create a data disclosure agreement template.
@@ -35,20 +32,19 @@ async def create_data_disclosure_agreement_handler(request: web.BaseRequest):
     """
     context = request.app["request_context"]
 
-    # Fetch request body
-    dda = await request.json()
-
     # Fetch query string params
     publish_flag = str_to_bool(
         clean_and_get_field_from_dict(request.query, "publish_flag")
     )
+
+    da_template_id = clean_and_get_field_from_dict(request.query, "da_template_id")
 
     # Initialise DEXA manager
     manager = DexaManager(context)
 
     # Create and store DDA in wallet.
     record = await manager.create_and_store_dda_template_in_wallet(
-        dda, publish_flag=publish_flag
+        da_template_id, publish_flag=publish_flag
     )
 
     return web.json_response(record.serialize())
@@ -101,7 +97,6 @@ async def query_dda_handler(request: web.BaseRequest):
 @docs(tags=[TAGS_DDA_LABEL], summary="Update DDA template.")
 @match_info_schema(DDATemplateMatchInfoSchema())
 @querystring_schema(UpdateDDATemplateQueryStringSchema())
-@request_schema(UpdateDDATemplateRequestSchema())
 async def update_dda_template_handler(request: web.BaseRequest):
     """Update DDA template."""
 
@@ -111,9 +106,6 @@ async def update_dda_template_handler(request: web.BaseRequest):
     # Path params
     template_id = request.match_info["template_id"]
 
-    # Request body
-    dda = await request.json()
-
     # Query string params
     publish_flag = clean_and_get_field_from_dict(request.query, "publish_flag")
     publish_flag = str_to_bool(publish_flag)
@@ -122,7 +114,7 @@ async def update_dda_template_handler(request: web.BaseRequest):
     manager = DexaManager(context=context)
 
     record = await manager.update_dda_template_in_wallet(
-        template_id=template_id, dda=dda, publish_flag=publish_flag
+        template_id=template_id, publish_flag=publish_flag
     )
 
     return web.json_response(record.serialize(), status=200)
