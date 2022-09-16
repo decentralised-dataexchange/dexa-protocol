@@ -166,3 +166,20 @@ class DeactivateDDAMatchInfoSchema(OpenAPISchema):
     """Deactivate DDA match info schema"""
 
     instance_id = fields.Str()
+
+
+class SendPullDataRequestMatchInfo(OpenAPISchema):
+    """Send pull data request match info"""
+
+    instance_id = fields.Str()
+
+
+class QueryPullDataRecordsQueryStringSchema(OpenAPISchema):
+    """
+    Query pull data records query string schema.
+    """
+
+    dda_instance_id = fields.Str(required=False)
+    dda_template_id = fields.Str(required=False)
+    page = fields.Int(required=False)
+    page_size = fields.Int(required=False)

@@ -8,7 +8,9 @@ from dexa_protocol.v1_0.routes.dda_routes import (
     publish_dda_to_marketplace_handler,
     query_dda_handler,
     query_dda_instances_handler,
+    query_pull_data_records_handler,
     request_dda_offer_from_ds_handler,
+    send_pulldata_request_handler,
     update_dda_template_handler,
 )
 from dexa_protocol.v1_0.routes.marketplace_routes import (
@@ -53,9 +55,18 @@ ROUTES_DDA = [
         query_dda_instances_handler,
         allow_head=False,
     ),
+    web.get(
+        "/v1/auditor/data-disclosure-agreements/pulldata-records",
+        query_pull_data_records_handler,
+        allow_head=False,
+    ),
     web.post(
         "/v1/data-disclosure-agreements/instances/{instance_id}/deactivate",
         deactivate_dda_instance_handler,
+    ),
+    web.post(
+        "/v1/data-disclosure-agreements/instances/{instance_id}/pulldata",
+        send_pulldata_request_handler,
     ),
 ]
 

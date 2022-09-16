@@ -2,21 +2,17 @@ from aiohttp import web
 from aiohttp_apispec import docs, match_info_schema, querystring_schema
 from dexa_protocol.v1_0.routes.maps.tag_maps import TAGS_DDA_LABEL
 from dexa_protocol.v1_0.routes.openapi.schemas import (
-    CreateDDATemplateRequestQueryStringSchema,
-    DDATemplateMatchInfoSchema,
+    CreateDDATemplateRequestQueryStringSchema, DDATemplateMatchInfoSchema,
     DeactivateDDAMatchInfoSchema,
     ListDDAPublishedInMarketplaceQueryStringSchema,
-    PublishDDAToMarketplaceMatchInfoSchema,
-    QueryDDAInstancesQueryStringSchema,
-    QueryDDATemplateQueryStringSchema,
-    RequestDDAFromDataSourceMatchInfoSchema,
-    UpdateDDATemplateQueryStringSchema,
-)
+    PublishDDAToMarketplaceMatchInfoSchema, QueryDDAInstancesQueryStringSchema,
+    QueryDDATemplateQueryStringSchema, QueryPullDataRecordsQueryStringSchema,
+    RequestDDAFromDataSourceMatchInfoSchema, SendPullDataRequestMatchInfo,
+    UpdateDDATemplateQueryStringSchema)
 from dexa_sdk.managers.dexa_manager import DexaManager
 from dexa_sdk.utils import clean_and_get_field_from_dict
-from mydata_did.v1_0.routes.maps.tag_maps import (
-    TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL,
-)
+from mydata_did.v1_0.routes.maps.tag_maps import \
+    TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL
 from mydata_did.v1_0.utils.util import str_to_bool
 
 
@@ -285,3 +281,60 @@ async def deactivate_dda_instance_handler(request: web.BaseRequest):
     await mgr.send_deactivate_dda_message(instance_id)
 
     return web.json_response({}, status=204)
+
+
+@docs(tags=[TAGS_DDA_LABEL], summary="Send pull data request.")
+@match_info_schema(SendPullDataRequestMatchInfo())
+async def send_pulldata_request_handler(request: web.BaseRequest):
+    """Send pull data request handler
+
+    Args:
+        request (web.BaseRequest): Request.
+    """
+    # Context
+    context = request.app["request_context"]
+
+    # Path parameters
+    instance_id = request.match_info["instance_id"]
+
+    # Initialise manager.
+    mgr = DexaManager(context)
+
+    # Call the function.
+    await mgr.send_pulldata_request_message(instance_id)
+
+    return web.json_response({}, status=204)
+
+
+@docs(
+    tags=[TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL],
+    summary="Query pull data records.",
+)
+@querystring_schema(QueryPullDataRecordsQueryStringSchema())
+async def query_pull_data_records_handler(request: web.BaseRequest):
+    """
+    Request handler for querying pull data records.
+    """
+
+    # Context
+    context = request.app["request_context"]
+
+    dda_instance_id = clean_and_get_field_from_dict(request.query, "dda_instance_id")
+    dda_template_id = clean_and_get_field_from_dict(request.query, "dda_template_id")
+    page = clean_and_get_field_from_dict(request.query, "page")
+    page = int(page) if page is not None else page
+    page_size = clean_and_get_field_from_dict(request.query, "page_size")
+    page_size = int(page_size) if page_size is not None else page_size
+
+    # Initialise Dexa manager
+    manager = DexaManager(context=context)
+
+    # Get the data agreement instances
+    paginationResult = await manager.query_pull_data_records(
+        dda_instance_id=dda_instance_id,
+        dda_template_id=dda_template_id,
+        page=page if page else 1,
+        page_size=page_size if page_size else 10,
+    )
+
+    return web.json_response(paginationResult._asdict())

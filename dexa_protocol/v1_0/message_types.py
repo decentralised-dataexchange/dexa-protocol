@@ -19,6 +19,9 @@ ACCEPT_DDA = f"dda-negotiation/1.0/accept-dda"
 NEGOTIATION_RECEIPT = f"dda-negotiation/1.0/receipt"
 DEACTIVATE_DDA = f"dda/1.0/deactivate"
 
+PULLDATA_REQUEST = f"pull-data/1.0/request"
+PULLDATA_RESPONSE = f"pull-data/1.0/response"
+PULLDATA_NOTIFICATION = f"pull-data/1.0/notification"
 
 PROTOCOL_PACKAGE = "dexa_protocol.v1_0"
 
@@ -34,5 +37,7 @@ MESSAGE_TYPES = DIDCommPrefix.qualify_all(
         ACCEPT_DDA: f"{PROTOCOL_PACKAGE}.messages.negotiation.accept_dda.AcceptDDAMessage",
         NEGOTIATION_RECEIPT: f"{PROTOCOL_PACKAGE}.messages.negotiation.dda_negotiation_receipt.DDANegotiationReceiptMessage",
         DEACTIVATE_DDA: f"{PROTOCOL_PACKAGE}.messages.deactivate_dda.DeactivateDDAMessage",
+        PULLDATA_REQUEST: f"{PROTOCOL_PACKAGE}.messages.pulldata_request_message.PullDataRequestMessage",
+        PULLDATA_RESPONSE: f"{PROTOCOL_PACKAGE}.messages.pulldata_response_message.PullDataResponseMessage",
     }
 )
