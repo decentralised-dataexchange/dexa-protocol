@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "dexa-protocol"
-version = "0.1.4"
+version = "0.1.5"
 description = "Hosts Data Disclosure Agreement protocols"
 authors = ["George J Padayatti <george.padayatti@igrant.io>"]
 license = "License :: OSI Approved :: Apache Software License"
