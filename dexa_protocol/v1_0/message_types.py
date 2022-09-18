@@ -39,5 +39,6 @@ MESSAGE_TYPES = DIDCommPrefix.qualify_all(
         DEACTIVATE_DDA: f"{PROTOCOL_PACKAGE}.messages.deactivate_dda.DeactivateDDAMessage",
         PULLDATA_REQUEST: f"{PROTOCOL_PACKAGE}.messages.pulldata_request_message.PullDataRequestMessage",
         PULLDATA_RESPONSE: f"{PROTOCOL_PACKAGE}.messages.pulldata_response_message.PullDataResponseMessage",
+        PULLDATA_NOTIFICATION: f"{PROTOCOL_PACKAGE}.messages.pulldata_notification_message.PullDataNotificationMessage",
     }
 )
