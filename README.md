@@ -21,6 +21,20 @@ This repository hosts source code for DEXA didcomm protocol plugin for aca-py. T
 ## Release Status
 
 Not released, work in progress. Planned release: September 2022
+
+## Installation
+
+Requirements:
+- Python 3.8.9 or higher
+
+### Plugin Installation
+
+Install this plugin into the virtual environment:
+
+```sh
+$ pip install dexa-protocol
+```
+
 ## Contributing
 
 Feel free to improve the plugin and send us a pull request. If you found any problems, please create an issue in this repo.
