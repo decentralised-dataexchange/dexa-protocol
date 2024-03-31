@@ -15,8 +15,6 @@ keywords = ["acapy", "aries", "dataexchange", "ssi"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
-acapy-patched = "0.5.6-dev1"
-dexa-sdk = "0.1.12"
 
 [tool.poetry.dev-dependencies]
 flake8 = "^5.0.4"
