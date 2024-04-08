@@ -8,7 +8,7 @@ from dexa_protocol.v1_0.routes.openapi.schemas import (
     PublishDDAToMarketplaceMatchInfoSchema, QueryDDAInstancesQueryStringSchema,
     QueryDDATemplateQueryStringSchema, QueryPullDataRecordsQueryStringSchema,
     RequestDDAFromDataSourceMatchInfoSchema, SendPullDataRequestMatchInfo,
-    UpdateDDATemplateQueryStringSchema)
+    UpdateDDATemplateQueryStringSchema, DeleteDDAByIDMatchInfoSchema)
 from dexa_sdk.managers.dexa_manager import DexaManager
 from dexa_sdk.utils import clean_and_get_field_from_dict
 from mydata_did.v1_0.routes.maps.tag_maps import \
@@ -258,6 +258,26 @@ async def query_dda_instances_handler(request: web.BaseRequest):
 
     return web.json_response(paginationResult._asdict())
 
+
+@docs(tags=[TAGS_DATA_AGREEMENT_AUDITOR_FUNCTIONS_LABEL], summary="Delete DDA instance by ID")
+@match_info_schema(DeleteDDAByIDMatchInfoSchema())
+async def delete_dda_instance_by_id_handler(request: web.BaseRequest):
+
+    # Context
+    context = request.app["request_context"]
+
+    # Path params.
+    instance_id = request.match_info["instance_id"]
+
+    # Initialise Dexa manager
+    manager = DexaManager(context=context)
+
+    # Delete DDA instance by ID
+    is_deleted = await manager.delete_dda_instance_by_id(
+        instance_id
+    )
+
+    return web.json_response({}, status=204)
 
 @docs(tags=[TAGS_DDA_LABEL], summary="Deactivate DDA.")
 @match_info_schema(DeactivateDDAMatchInfoSchema())

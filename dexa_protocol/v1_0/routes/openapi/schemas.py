@@ -149,6 +149,11 @@ class RequestDDAFromDataSourceMatchInfoSchema(OpenAPISchema):
     template_id = fields.Str()
 
 
+class DeleteDDAByIDMatchInfoSchema(OpenAPISchema):
+
+    instance_id = fields.Str()
+
+
 class QueryDDAInstancesQueryStringSchema(OpenAPISchema):
     """
     Query DDA instances
